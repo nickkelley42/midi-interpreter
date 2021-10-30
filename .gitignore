@@ -1,1 +1,3 @@
 midi-interpreter
+midi-callbacks-test
+*.o
