@@ -1,5 +1,6 @@
 #include "midi-callbacks.h"
 #include <iostream>
+#include <stdexcept>
 
 MidiStream::MidiStream(std::istream &inputStream)
 	: input(inputStream), currentCallback(NULL) {}

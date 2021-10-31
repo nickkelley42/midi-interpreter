@@ -3,6 +3,9 @@
 
 #include <istream>
 #include <map>
+#include <cstdint>
+
+#include "char-buffer.h"
 
 enum class MidiMessageType {
 	NoteOff,
@@ -30,6 +33,8 @@ private:
 
 	void setCurrentCallback(MidiMessageType t);
 	CallbackFunction currentCallback;
+
+	CharBuffer buffer;
 };
 
 #endif
