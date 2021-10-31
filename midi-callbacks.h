@@ -18,6 +18,16 @@ enum class MidiMessageType {
 	Unknown,
 };
 
+const std::map<uint8_t, MidiMessageType> MidiMessageInts {
+	{ 0, MidiMessageType::NoteOff },
+	{ 1, MidiMessageType::NoteOn },
+	{ 2, MidiMessageType::PolyKeyPressure },
+	{ 3, MidiMessageType::ControlChange },
+	{ 4, MidiMessageType::ProgramChange },
+	{ 5, MidiMessageType::ChannelPressure },
+	{ 6, MidiMessageType::PitchBend }
+};
+
 typedef void (*CallbackFunction)(uint8_t);
 
 typedef void (*Callback7Monadic)(uint8_t);
