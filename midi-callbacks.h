@@ -20,6 +20,10 @@ enum class MidiMessageType {
 
 typedef void (*CallbackFunction)(uint8_t);
 
+typedef void (*Callback7Monadic)(uint8_t);
+typedef void (*Callback7Dyadic)(uint8_t, uint8_t);
+typedef void (*Callback14Mondadic)(uint16_t);
+
 class MidiStream {
 public:
 	MidiStream(std::istream &inputStream);
