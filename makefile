@@ -1,6 +1,7 @@
-all: midi-callbacks-test
-
+CXXFLAGS += -std=c++17
 CC = g++
+
+all: midi-callbacks-test
 
 midi-callbacks-test: midi-callbacks-test.o
 midi-callbacks-test.o : midi-callbacks-test.cpp

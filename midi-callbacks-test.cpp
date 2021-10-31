@@ -1,18 +1,15 @@
 #include "midi-callbacks.h"
 #include <iostream>
 
-void printMessage(const char* type, uint8_t val) {
-	std::cout << type << ":\t" << val << std::endl;
+void printCC(uint8_t a, uint8_t b) {
+	std::cout << "CC:\t" << static_cast<unsigned int>(a)
+		<< "\t" << static_cast<unsigned int>(b) << std::endl;
 }
-
-void printNoteOn(uint8_t v) { printMessage("Note on", v); }
-void printUnknown(uint8_t v) { printMessage("Unknown:", v); }
 
 int main() {
 	MidiStream ms {std::cin};
 
-	ms.setCallback(MidiMessageType::NoteOn, printNoteOn);
-	ms.setCallback(MidiMessageType::Unknown, printUnknown);
+	ms.setCallback(Dyadic7Message::ControlChange, printCC);
 
 	while (ms.hasNext()) {
 		ms.next();

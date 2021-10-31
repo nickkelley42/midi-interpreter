@@ -8,6 +8,8 @@ public:
 	CharBuffer();
 	bool isPresent();
 	uint8_t content();
+	void set(uint8_t);
+	void clear();
 
 private:
 	uint8_t buffer;

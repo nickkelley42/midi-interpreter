@@ -12,3 +12,12 @@ uint8_t CharBuffer::content() {
 
 	return buffer;
 }
+
+void CharBuffer::clear() {
+	present = false;
+}
+
+void CharBuffer::set(uint8_t byte) {
+	present = true;
+	buffer = byte;
+}
