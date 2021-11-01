@@ -89,6 +89,6 @@ void MidiStream::execCallback() {
 			buffer.set(byte);
 		}
 	} else if (std::holds_alternative<Monadic14Message>(messageType)) {
-		throw "FUCK";
+		throw "have not implemented this yet...";
 	}
 }
