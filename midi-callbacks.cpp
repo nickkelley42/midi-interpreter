@@ -70,6 +70,8 @@ void MidiStream::setCurrentCallback(Message type) {
 		}
 	}
 	messageType = type;
+
+	buffer.clear();
 }
 
 void MidiStream::execCallback() {
