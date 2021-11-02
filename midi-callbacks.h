@@ -17,13 +17,11 @@ enum class CallbackType {
 typedef void (*Callback7Monadic)(uint8_t);
 
 enum class Monadic7Message {
-	NoteOff,
 	ProgramChange,
 	ChannelPressure,
 	Unknown
 };
 const std::map<uint8_t, Monadic7Message> Monadic7MessageInts {
-	{ 0, Monadic7Message::NoteOff },
 	{ 4, Monadic7Message::ProgramChange },
 	{ 5, Monadic7Message::ChannelPressure },
 };
@@ -31,12 +29,14 @@ const std::map<uint8_t, Monadic7Message> Monadic7MessageInts {
 typedef void (*Callback7Dyadic)(uint8_t, uint8_t);
 
 enum class Dyadic7Message {
+	NoteOff,
 	NoteOn,
 	ControlChange,
 	PolyKeyPressure
 };
 
 const std::map<uint8_t, Dyadic7Message> Dyadic7MessageInts {
+	{ 0, Dyadic7Message::NoteOff },
 	{ 1, Dyadic7Message::NoteOn },
 	{ 2, Dyadic7Message::PolyKeyPressure },
 	{ 3, Dyadic7Message::ControlChange }
