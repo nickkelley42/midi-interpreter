@@ -91,6 +91,14 @@ void MidiStream::execCallback() {
 			buffer.set(byte);
 		}
 	} else if (std::holds_alternative<Monadic14Message>(messageType)) {
-		throw "have not implemented this yet...";
+		if (buffer.isPresent()) {
+			uint8_t first = buffer.content();
+			uint16_t value = (byte << 7) + first;
+
+			((Callback14Monadic) currentCallback)(value);
+			buffer.clear();
+		} else {
+			buffer.set(byte);
+		}
 	}
 }
