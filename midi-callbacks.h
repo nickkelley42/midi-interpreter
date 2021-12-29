@@ -79,7 +79,7 @@ private:
 	void setCallback(Callback7Dyadic);
 	void setCallback(Callback14Monadic);
 
-	void execCallback();
+	void execCallback(uint8_t);
 
 	void execCallback(std::monostate, uint8_t);
 	void execCallback(Callback7Monadic, uint8_t);

@@ -43,16 +43,20 @@ bool isStatusByte(uint8_t b) {
 	return b & STATUSBIT;
 }
 
+uint8_t readByte(std::istream& input) {
+	uint8_t byte;
+	input.read((char*)(&byte), 1);
+	return byte;
+}
+
 void MidiStream::next() {
-	unsigned char b;
-	input.read((char*) &b, 1);
+	auto b = readByte(input);
 
 	if (isStatusByte(b)) {
 		Message type = typeFromStatus(b);
 		setCurrentCallback(type);
 	} else {
-		input.unget();
-		execCallback();
+		execCallback(b);
 	}
 }
 
@@ -85,15 +89,8 @@ void MidiStream::setCurrentCallback(Message type) {
 	}
 }
 
-uint8_t readByte(std::istream& input) {
-	uint8_t byte;
-	input.read((char*)(&byte), 1);
-	return byte;
-}
-
-void MidiStream::execCallback() {
-	auto f = [this](auto&& cb) {
-		uint8_t b = readByte(input);
+void MidiStream::execCallback(uint8_t b) {
+	auto f = [this, b](auto&& cb) {
 		execCallback(cb, b);
 	};
 	std::visit(f, callback);
