@@ -15,24 +15,33 @@ enum class CallbackType {
 };
 
 typedef void (*Callback7Monadic)(uint8_t);
+typedef void (*Callback7Dyadic)(uint8_t, uint8_t);
+typedef void (*Callback14Monadic)(uint16_t);
+
+typedef std::variant<std::monostate, Callback7Monadic, Callback7Dyadic, Callback14Monadic> Callback;
 
 enum class Monadic7Message {
 	ProgramChange,
 	ChannelPressure,
 	Unknown
 };
-const std::map<uint8_t, Monadic7Message> Monadic7MessageInts {
-	{ 4, Monadic7Message::ProgramChange },
-	{ 5, Monadic7Message::ChannelPressure },
-};
-
-typedef void (*Callback7Dyadic)(uint8_t, uint8_t);
 
 enum class Dyadic7Message {
 	NoteOff,
 	NoteOn,
 	ControlChange,
 	PolyKeyPressure
+};
+
+enum class Monadic14Message {
+	PitchBend
+};
+
+typedef std::variant<Monadic7Message, Dyadic7Message, Monadic14Message> Message;
+
+const std::map<uint8_t, Monadic7Message> Monadic7MessageInts {
+	{ 4, Monadic7Message::ProgramChange },
+	{ 5, Monadic7Message::ChannelPressure },
 };
 
 const std::map<uint8_t, Dyadic7Message> Dyadic7MessageInts {
@@ -42,18 +51,9 @@ const std::map<uint8_t, Dyadic7Message> Dyadic7MessageInts {
 	{ 3, Dyadic7Message::ControlChange }
 };
 
-typedef void (*Callback14Monadic)(uint16_t);
-
-enum class Monadic14Message {
-	PitchBend
-};
-
 const std::map<uint8_t, Monadic14Message> Monadic14MessageInts {
 	{ 6, Monadic14Message::PitchBend }
 };
-
-typedef std::variant<Monadic7Message, Dyadic7Message, Monadic14Message> Message;
-typedef void (*voidCallback)();
 
 class MidiStream {
 public:
@@ -73,8 +73,18 @@ private:
 
 	Message messageType;
 	void setCurrentCallback(Message type);
-	void (*currentCallback)(void);
+	Callback callback;
+
+	void setCallback(Callback7Monadic);
+	void setCallback(Callback7Dyadic);
+	void setCallback(Callback14Monadic);
+
 	void execCallback();
+
+	void execCallback(std::monostate, uint8_t);
+	void execCallback(Callback7Monadic, uint8_t);
+	void execCallback(Callback7Dyadic, uint8_t);
+	void execCallback(Callback14Monadic, uint8_t);
 
 	CharBuffer buffer;
 };
