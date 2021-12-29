@@ -61,7 +61,6 @@ void MidiStream::next() {
 }
 
 void MidiStream::setCurrentCallback(Message type) {
-	messageType = type;
 	buffer.clear();
 
 	// The three nominal cases look nearly identical... I wonder

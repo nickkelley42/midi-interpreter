@@ -71,13 +71,8 @@ private:
 	std::map<Dyadic7Message, Callback7Dyadic> dyad7_callbacks;
 	std::map<Monadic14Message, Callback14Monadic> monad14_callbacks;
 
-	Message messageType;
 	void setCurrentCallback(Message type);
 	Callback callback;
-
-	void setCallback(Callback7Monadic);
-	void setCallback(Callback7Dyadic);
-	void setCallback(Callback14Monadic);
 
 	void execCallback(uint8_t);
 
